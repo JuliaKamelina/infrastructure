@@ -1,5 +1,5 @@
 file(GLOB_RECURSE CPPS "*.cpp")
-file(GLOB_RECURSE HPPS "*.h")
+file(GLOB_RECURSE HPPS "../include/*.h")
 
 include_directories(../include)
 

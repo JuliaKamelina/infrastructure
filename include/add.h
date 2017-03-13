@@ -1,6 +1,30 @@
-#ifndef INCLUDE_ADD_H_
-#define INCLUDE_ADD_H_
+#ifndef INCLUDE_CONSTRUCT_H_
+#define INCLUDE_CONSTRUCT_H_
 
-int add(int x, int y);
+#include <stack>
 
-#endif  // INCLUDE_ADD_H_
+struct CNode {
+  int val;
+  CNode* left;
+  CNode* right;
+
+  CNode (int v = 0) {
+    val = v;
+    left = 0;
+    right = 0;
+  }
+};
+
+struct Node {
+  int begin;
+  int end;
+  CNode* treeNode;
+
+  Node (int b = 0, int e = 0, CNode* n) {
+    begin = b;
+    end = e;
+    treeNode = n;
+  }
+};
+
+#endif  // INCLUDE_CONSTRUCT_H_

@@ -6,7 +6,7 @@ char* Way(int x, int y) {
   int cx = 0, cy = 0;
   int i = 1;
 
-  while ((cx != x) && (cy != y) && (abs(x - cx) > i) && (abs(y - cy) > i)) {
+  while ((cx != x) && (cy != y) && (fabs(x - cx) > i) && (fabs(y - cy) > i)) {
     if (y > 0) {
       way[i - 1] = 'N';
       cy += i;
@@ -32,7 +32,7 @@ char* Way(int x, int y) {
     }
   }
 
-  if (abs(x - cx) >= i) {
+  if (fabs(x - cx) >= i) {
     if (x > 0) {
       cx += i;
       way[i - 1] = 'E';
@@ -46,7 +46,7 @@ char* Way(int x, int y) {
     }
   }
 
-  if (abs(y - cy) >= i) {
+  if (fabs(y - cy) >= i) {
     if (y > 0) {
       cy += i;
       way[i - 1] = 'N';

@@ -1,4 +1,5 @@
 #include "way.h"
+#include <math.h>
 
 char* Way(int x, int y) {
   char* way = new char[1000];

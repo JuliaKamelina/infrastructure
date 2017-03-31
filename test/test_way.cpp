@@ -1,19 +1,6 @@
 #include <gtest/gtest.h>
 #include "way.h"
 
-TEST(findWay, canFindWay) {
-  int x = 6;
-  int y = 3;
-
-  char* res = "NEEWESNSN";
-
-  char* r = Way(6, 3);
-
-  for (int i = 0; res[i] != 0 || r[i] != 0; i++) {
-    EXPECT_EQ(res[i], r[i]);
-  }
-}
-
 TEST(findWay, canFindWays) {
   int x, y;
   int cx, cy;

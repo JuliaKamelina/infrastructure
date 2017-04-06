@@ -15,7 +15,8 @@ int deikstra(vector< vector< pair<int, int> > > g, int start, int end) {
     }
     s.erase(s.begin());
 
-    for (int i = 0; i < g[v].size(); ++i) {
+    int n = g[v].size();
+    for (int i = 0; i < n; ++i) {
       int to = g[v][i].second;
       if (to < 0) break;
       int len = g[v][i].first;

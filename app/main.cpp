@@ -9,7 +9,7 @@ using std::ifstream;
 int main() {
   vector<vector<pair<int, int> > >g;
   string str;
-  ifstream file("D:\GitLabs\Laba2\graph.txt");
+  ifstream file("graph.txt");
   int j = 0;
 
   if (!file.is_open()) std::cout << "reahjngkrs;o";

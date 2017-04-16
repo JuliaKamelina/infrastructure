@@ -359,7 +359,7 @@ TEST(PQUEUEHEAP, canDelMin) {
   q.push(make_pair(3, 2));
   q.push(make_pair(1, 0));
 
-  q.deleteMin(make_pair(1, 0));
+  q.deleteMin();
 
   EXPECT_EQ(q.min().first, 2);
   EXPECT_EQ(q.min().second, 1);

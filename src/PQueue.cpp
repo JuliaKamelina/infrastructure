@@ -92,7 +92,7 @@ void PQueueHeap::update(int key, int new_value) {
   d.insert(new_value, key);
 }
 
-void PQueueHeap::deleteMin(pair<int, int> dist) {
+void PQueueHeap::deleteMin() {
   d.deleteNode(0);
 }
 

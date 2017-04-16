@@ -61,7 +61,7 @@ int dijkstraHeap(vector< vector< pair<int, int> > > g, int start, int end) {
         q.update(to.second, v.first + to.first);
       }
     }
-    q.deleteMin(v);
+    q.deleteMin();
   }
   return 0;
 }

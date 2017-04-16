@@ -26,7 +26,7 @@ class PQueueHeap: public DHeap {
   void push(pair<int, int> n);
   pair<int, int> min();  //  first - расстояние, second - вершина
   void update(int key, int new_value);  //  key - вершина, new_value - расстояние
-  void deleteMin(pair<int, int> dist);  //  dist.first == distance
+  void deleteMin();
   int getCurVal(int key);
   bool empty();
 };

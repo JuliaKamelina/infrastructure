@@ -4,6 +4,7 @@
 #include "PQueue.h"
 
 #include <queue>
+#include <math.h>
 
 TEST(RBTREE, canFindExistingElement) {
   RBTree rTree;

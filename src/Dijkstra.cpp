@@ -4,7 +4,7 @@ const int INF = 1000000000;
 
 int dijkstraTree(vector< vector< pair<int, int> > > g, int start, int end) {
   PQueueTree q;
-  int n = (int)g.size();
+  int n = static_cast<int>(g.size());
   for (int i = 0; i < n; i++) {
     if (i == start) {
       q.push(make_pair(0, i));
@@ -36,7 +36,7 @@ int dijkstraTree(vector< vector< pair<int, int> > > g, int start, int end) {
 
 int dijkstraHeap(vector< vector< pair<int, int> > > g, int start, int end) {
   PQueueHeap q;
-  int n = (int)g.size();
+  int n = static_cast<int>(g.size());
   for (int i = 0; i < n; i++) {
     if (i == start) {
       q.push(make_pair(0, i));

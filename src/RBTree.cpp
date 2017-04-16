@@ -311,7 +311,7 @@ void RBTree::deleteNode(CNode* n) {
   if (p->parent == nullptr) {
     root = q;
     if (q != nullptr) root->color = 'B';
-    free(p);
+    delete(p);
     return;
   } else {
     if (p == p->parent->left) {
@@ -331,7 +331,7 @@ void RBTree::deleteNode(CNode* n) {
     }
   }
 
-  free(p);
+  delete(p);
   while (root->parent != nullptr) {
     count++;
     root = root->parent;

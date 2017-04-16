@@ -288,7 +288,7 @@ TEST(PQUEUETREE, canPush) {
 
   int d2 = q.countOp;
 
-  //  EXPECT_EQ((log(10)/*/log(2)*/ - log(5)/*/log(2)*/)/(d2 - d1), 1);  //  ????difficulty of PQ?????
+  //  EXPECT_EQ((log(10)/*/log(2)*/ - log(5)/*/log(2)*/)/(d2 - d1), 1);
 }
 
 TEST(PQUEUETREE, canGetMin) {

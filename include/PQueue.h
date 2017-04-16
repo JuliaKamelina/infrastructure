@@ -15,7 +15,7 @@ class PQueueTree: public RBTree {
   void push(pair<int, int> n);  //  first - расстояние, second - вершина
   pair<int, int> min();  //  first - расстояние, second - вершина
   void update(int key, int new_value);  //  key - вершина, value - расстояние
-  void deleteMin(pair<int, int> dist);  //  удаляет вершину с минимальным расстоянием. dist.first == distance
+  void deleteMin(pair<int, int> dist);  //  dist.first == distance
   int getCurVal(int vkey);  //  текущее значение расстояния до данной вершины
   bool empty();
 };
@@ -26,7 +26,7 @@ class PQueueHeap: public DHeap {
   void push(pair<int, int> n);
   pair<int, int> min();  //  first - расстояние, second - вершина
   void update(int key, int new_value);  //  key - вершина, new_value - расстояние
-  void deleteMin(pair<int, int> dist);  //  удаляет вершину с минимальным расстоянием, dist.first == distance
+  void deleteMin(pair<int, int> dist);  //  dist.first == distance
   int getCurVal(int key);
   bool empty();
 };

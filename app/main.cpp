@@ -1,6 +1,15 @@
-#include "add.h"
+#include "prcl.h"
 #include <iostream>
 
 int main() {
-  std::cout << "2 + 2 = " << add(2, 2) << std::endl;
+  int** g = new int*[N];
+
+  for (int i = 0; i < N; i++) {
+    g[i] = new int[N];
+    for (int j = 0; j < N; j++) {
+      g[i][j] = 0;
+    }
+  }
+
+  std::cout << minThrows(g);
 }

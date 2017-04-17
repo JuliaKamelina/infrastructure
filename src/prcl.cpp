@@ -41,7 +41,6 @@ bool percolation(int** g) {
 
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < N; j++) {
-
       if ((j + 1 < N) && (g[i][j + 1] == 1) && (g[i][j] == 1)) {
         unite(j + 1 + N*i, j + 2 + N*i);
       }
@@ -59,14 +58,12 @@ bool percolation(int** g) {
 double minThrows(int** g) {
   double res = 0;
   int k = 1000;
-  int tmp;
 
   for (int i = 0; i < k; i++) {
     bool f = percolation(g);
-    int x = 0;
+    double x = 0;
 
     for (int j = 0; j < k; j++) {
-
       while (f == false) {
         int p = rand() % N;
         int q = rand() % N;
@@ -83,14 +80,11 @@ double minThrows(int** g) {
           g[p][q] = 0;
         }
       }
-
     }
 
-    res += x/(N*N) + (x % (N*N))*1e-6;
+    res += x/(N*N);
   }
 
-  tmp = (int)res*1e+6;
-  res = res/k + ((tmp % 1000000)%k)*1e-5;
-
+  res = res/k;
   return res;
 }

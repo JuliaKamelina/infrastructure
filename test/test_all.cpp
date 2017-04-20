@@ -295,11 +295,11 @@ TEST(PQUEUEHEAP, canDelMin) {
   EXPECT_EQ(q.min(), 2);
 }
 
-TEST(DijkstraTree, canFindWay) {
+TEST(DijkstraTree, canFindWayNegativeVal) {
   vector< vector< pair<int, int> > > g = { { make_pair(6, 2), make_pair(4, 1) },
   { make_pair(1, 3), make_pair(4, 0) },
   { make_pair(3, 3), make_pair(6, 0) },
-  { make_pair(-1, -1), make_pair(1, 1), make_pair(3, 3) } };
+  { make_pair(-1, -1), make_pair(-11, 1), make_pair(3, 3) } };
   vector<int> way = dijkstraTree(g, 0, 3);
 
   EXPECT_EQ(way[3], 5);
@@ -360,11 +360,11 @@ TEST(DijkstraTree, leafs) {
   EXPECT_EQ(way[5], 7);
 }
 
-TEST(DijkstraHeap, canFindWay) {
+TEST(DijkstraHeap, canFindWayNegativeVal) {
   vector< vector< pair<int, int> > > g = { { make_pair(6, 2), make_pair(4, 1) },
   { make_pair(1, 3), make_pair(4, 0) },
   { make_pair(3, 3), make_pair(6, 0) },
-  { make_pair(-1, -1), make_pair(1, 1), make_pair(3, 3) } };
+  { make_pair(-1, -1), make_pair(-11, 1), make_pair(3, 3) } };
   vector<int> way = dijkstraHeap(g, 0, 3);
 
   EXPECT_EQ(way[3], 5);

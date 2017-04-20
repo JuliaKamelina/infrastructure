@@ -3,108 +3,102 @@
 #include "Heap.h"
 #include "PQueue.h"
 
-#include <queue>
 #include <math.h>
 
+using std::make_pair;
+
 TEST(RBTREE, canFindExistingElement) {
-  RBTree rTree;
+  RBTree<int> rTree;
 
-  CNode* tree = rTree.findInsert(7, 1);
-  rTree.findInsert(5, 1);
-  rTree.findInsert(1, 2);
-  rTree.findInsert(9, 0);
-  rTree.findInsert(6, 1);
+  CNode<int>* tree = rTree.insert(7);
+  rTree.insert(5);
+  rTree.insert(1);
+  rTree.insert(9);
+  rTree.insert(6);
 
-  tree = rTree.findInsert(1, 2);
+  tree = rTree.find(5);
 
-  EXPECT_EQ(tree->val.first, 1);
-  EXPECT_EQ(tree->val.second, 2);
+  EXPECT_EQ(tree->val, 5);
 }
 
-TEST(RBTREE, canUpdateExistingValue) {
-  RBTree rTree;
+TEST(RBTREE, elementDoesntExist) {
+  RBTree<int> rTree;
 
-  CNode* tree = rTree.findInsert(7, 1);
-  rTree.findInsert(5, 1);
-  rTree.findInsert(1, 2);
-  rTree.findInsert(9, 0);
-  rTree.findInsert(6, 1);
+  rTree.insert(7);
+  rTree.insert(5);
+  rTree.insert(1);
+  rTree.insert(9);
+  rTree.insert(6);
 
-  tree = rTree.findInsert(1, 2);
-
-  tree->val.second = 4;
-
-  CNode* tree1 = rTree.findInsert(1, 4);
-
-  EXPECT_EQ(tree->val.second, tree1->val.second);
+  ASSERT_ANY_THROW(rTree.find(10));
 }
 
 TEST(RBTREE, canFindMin) {
-  RBTree rTree;
-  CNode* tree = rTree.findInsert(7, 1);
-  rTree.findInsert(5, 1);
-  rTree.findInsert(3, 0);
-  rTree.findInsert(4, 9);
-  rTree.findInsert(2, 1);
-  rTree.findInsert(1, 2);
-  rTree.findInsert(0, 2);
-  rTree.findInsert(-1, 2);
+  RBTree<int> rTree;
+  rTree.insert(7);
+  rTree.insert(5);
+  rTree.insert(3);
+  rTree.insert(4);
+  rTree.insert(2);
+  rTree.insert(1);
+  rTree.insert(0);
+  rTree.insert(-1);
 
-  EXPECT_EQ(-1, rTree.getMin()->val.first);
+  EXPECT_EQ(-1, rTree.getMin()->val);
 }
 
 TEST(RBTREE, canInsert) {
-  RBTree rTree;
-  CNode* tree = rTree.findInsert(7, 1);
-  rTree.findInsert(5, 1);
-  rTree.findInsert(3, 0);
-  rTree.findInsert(4, 9);
-  rTree.findInsert(2, 1);
-  rTree.findInsert(1, 2);
-  rTree.findInsert(0, 2);
-  rTree.findInsert(-1, 2);
+  RBTree<int> rTree;
+  CNode<int>* tree = rTree.insert(7);
+  rTree.insert(5);
+  rTree.insert(3);
+  rTree.insert(4);
+  rTree.insert(2);
+  rTree.insert(1);
+  rTree.insert(0);
+  rTree.insert(-1);
   tree = rTree.getRoot();
 
-  EXPECT_EQ(tree->val.first, 3);
+  EXPECT_EQ(tree->val, 3);
   EXPECT_EQ(tree->color, 'B');
-  EXPECT_EQ(tree->right->val.first, 5);
+  EXPECT_EQ(tree->right->val, 5);
   EXPECT_EQ(tree->right->color, 'R');
-  EXPECT_EQ(tree->right->left->val.first, 4);
+  EXPECT_EQ(tree->right->left->val, 4);
   EXPECT_EQ(tree->right->left->color, 'B');
-  EXPECT_EQ(tree->right->right->val.first, 7);
+  EXPECT_EQ(tree->right->right->val, 7);
   EXPECT_EQ(tree->right->right->color, 'B');
-  EXPECT_EQ(tree->left->val.first, 1);
+  EXPECT_EQ(tree->left->val, 1);
   EXPECT_EQ(tree->left->color, 'R');
-  EXPECT_EQ(tree->left->left->val.first, 0);
+  EXPECT_EQ(tree->left->left->val, 0);
   EXPECT_EQ(tree->left->left->color, 'B');
-  EXPECT_EQ(tree->left->right->val.first, 2);
+  EXPECT_EQ(tree->left->right->val, 2);
   EXPECT_EQ(tree->left->right->color, 'B');
-  EXPECT_EQ(tree->left->left->left->val.first, -1);
+  EXPECT_EQ(tree->left->left->left->val, -1);
   EXPECT_EQ(tree->left->left->left->color, 'R');
 }
 
 TEST(RBTREE, hight) {
-  RBTree rTree;
+  RBTree<int> rTree;
 
-  CNode* tree = rTree.findInsert(7, 1);
-  rTree.findInsert(5, 1);
-  rTree.findInsert(3, 0);
-  rTree.findInsert(4, 9);
-  rTree.findInsert(2, 1);
-  rTree.findInsert(1, 2);
-  rTree.findInsert(0, 2);
-  rTree.findInsert(-1, 2);
+  CNode<int>* tree = rTree.insert(7);
+  rTree.insert(5);
+  rTree.insert(3);
+  rTree.insert(4);
+  rTree.insert(2);
+  rTree.insert(1);
+  rTree.insert(0);
+  rTree.insert(-1);
 
   tree = rTree.getRoot();
 
-  std::queue<CNode* > q;  //  cчитает высоту
+  std::queue<CNode<int>* > q;  //  cчитает высоту
   int h = 0;
   q.push(tree);
 
   while (!q.empty()) {
     int s = q.size();
     for (int i = 0; i < s; i++) {
-      CNode* node = q.front();
+      CNode<int>* node = q.front();
       q.pop();
 
       if (node->left != nullptr) q.push(node->left);
@@ -117,26 +111,26 @@ TEST(RBTREE, hight) {
 }
 
 TEST(RBTREE, hightAfterDelete) {
-  RBTree rTree;
+  RBTree<int> rTree;
 
-  CNode* tree = rTree.findInsert(7, 1);
-  tree = rTree.findInsert(5, 1);
-  rTree.findInsert(1, 2);
-  rTree.findInsert(9, 0);
-  rTree.findInsert(6, 1);
+  CNode<int>* tree = rTree.insert(7);
+  tree = rTree.insert(5);
+  rTree.insert(1);
+  rTree.insert(9);
+  rTree.insert(6);
 
   rTree.deleteNode(tree);
 
   tree = rTree.getRoot();
 
-  std::queue<CNode* > q;  //  cчитает высоту
+  std::queue<CNode<int>* > q;  //  cчитает высоту
   int h = 0;
   q.push(tree);
 
   while (!q.empty()) {
     int s = q.size();
     for (int i = 0; i < s; i++) {
-      CNode* node = q.front();
+      CNode<int>* node = q.front();
       q.pop();
 
       if (node->left != nullptr) q.push(node->left);
@@ -149,67 +143,67 @@ TEST(RBTREE, hightAfterDelete) {
 }
 
 TEST(RBTREE, canDeleteRoot) {
-  RBTree rTree;
+  RBTree<int> rTree;
 
-  CNode* tree = rTree.findInsert(7, 1);
-  tree = rTree.findInsert(5, 1);
-  rTree.findInsert(1, 2);
-  rTree.findInsert(9, 0);
-  rTree.findInsert(6, 1);
+  CNode<int>* tree = rTree.insert(7);
+  tree = rTree.insert(5);
+  rTree.insert(1);
+  rTree.insert(9);
+  rTree.insert(6);
 
   rTree.deleteNode(tree);
 
   tree = rTree.getRoot();
 
-  EXPECT_EQ(tree->val.first, 6);
+  EXPECT_EQ(tree->val, 6);
   EXPECT_EQ(tree->color, 'B');
-  EXPECT_EQ(tree->left->val.first, 1);
+  EXPECT_EQ(tree->left->val, 1);
   EXPECT_EQ(tree->left->color, 'B');
-  EXPECT_EQ(tree->right->val.first, 7);
+  EXPECT_EQ(tree->right->val, 7);
   EXPECT_EQ(tree->right->color, 'B');
-  EXPECT_EQ(tree->right->right->val.first, 9);
+  EXPECT_EQ(tree->right->right->val, 9);
   EXPECT_EQ(tree->right->right->color, 'R');
 }
 
 TEST(RBTREE, canDeleteLeaf) {
-  RBTree rTree;
+  RBTree<int> rTree;
 
-  CNode* tree = rTree.findInsert(7, 1);
-  rTree.findInsert(5, 1);
-  rTree.findInsert(1, 2);
-  tree = rTree.findInsert(9, 0);
-  rTree.findInsert(6, 1);
+  CNode<int>* tree = rTree.insert(7);
+  rTree.insert(5);
+  rTree.insert(1);
+  tree = rTree.insert(9);
+  rTree.insert(6);
 
   rTree.deleteNode(tree);
 
   tree = rTree.getRoot();
 
-  EXPECT_EQ(tree->val.first, 5);
+  EXPECT_EQ(tree->val, 5);
   EXPECT_EQ(tree->color, 'B');
-  EXPECT_EQ(tree->left->val.first, 1);
+  EXPECT_EQ(tree->left->val, 1);
   EXPECT_EQ(tree->left->color, 'B');
-  EXPECT_EQ(tree->right->val.first, 7);
+  EXPECT_EQ(tree->right->val, 7);
   EXPECT_EQ(tree->right->color, 'B');
-  EXPECT_EQ(tree->right->left->val.first, 6);
+  EXPECT_EQ(tree->right->left->val, 6);
   EXPECT_EQ(tree->right->left->color, 'R');
 }
 
 TEST(RBTREE, canDeleteTwoNodesTree) {
-  RBTree rTree;
+  RBTree<int> rTree;
 
-  CNode* tree = rTree.findInsert(7, 1);
-  rTree.findInsert(5, 1);
+  CNode<int>* tree = rTree.insert(7);
+  rTree.insert(5);
 
   rTree.deleteNode(tree);
 
-  EXPECT_EQ(rTree.getRoot()->val.first, 5);
+  EXPECT_EQ(rTree.getRoot()->val, 5);
   EXPECT_EQ(rTree.getRoot()->color, 'B');
 }
 
 TEST(RBTREE, canDeleteOnlyRoot) {
-  RBTree rTree;
+  RBTree<int> rTree;
 
-  CNode* tree = rTree.findInsert(7, 1);
+  CNode<int>* tree = rTree.insert(7);
 
   rTree.deleteNode(tree);
 
@@ -217,177 +211,98 @@ TEST(RBTREE, canDeleteOnlyRoot) {
 }
 
 TEST(HEAP, canInsert) {
-  DHeap h;
+  DHeap<int> h;
 
-  pair<int, int> a[4] = {make_pair(1, 2), make_pair(0, 2), make_pair(7, 1), make_pair(4, 1)};
+  int a[4] = {1, 0, 7, 4};
 
   for (int i = 0; i < 4; i++) {
-    int j = h.insert(a[i].first, a[i].second);
+    int j = h.insert(a[i]);
     EXPECT_EQ(h[j], a[i]);
   }
 }
 
 TEST(HEAP, minOnTop) {
-  DHeap h;
+  DHeap<int> h;
 
-  pair<int, int> a[4] = { make_pair(1, 2), make_pair(0, 2), make_pair(7, 1), make_pair(4, 1) };
+  int a[4] = { 1, 0, 7, 4 };
 
   for (int i = 0; i < 4; i++) {
-    h.insert(a[i].first, a[i].second);
+    h.insert(a[i]);
   }
 
   EXPECT_EQ(h[0], a[1]);
 }
 
-TEST(HEAP, canFindExistingValues) {
-  DHeap h;
-
-  pair<int, int> a[4] = { make_pair(1, 2), make_pair(0, 2), make_pair(7, 1), make_pair(4, 1) };
-
-  for (int i = 0; i < 4; i++) {
-    h.insert(a[i].first, a[i].second);
-  }
-
-  for (int i = 0; i < 4; i++) {
-    int j = h.find(a[i].first, a[i].second);
-    EXPECT_EQ(h[j], a[i]);
-  }
-}
-
 TEST(HEAP, canDelete) {
-  DHeap h;
+  DHeap<int> h;
 
-  pair<int, int> a[4] = { make_pair(1, 2), make_pair(0, 2), make_pair(7, 1), make_pair(4, 1) };
-
-  for (int i = 0; i < 4; i++) {
-    h.insert(a[i].first, a[i].second);
-  }
+  int a[4] = { 1, 0, 7, 4 };
 
   for (int i = 0; i < 4; i++) {
-    int j = h.find(a[i].first, a[i].second);
-    h.deleteNode(j);
-    EXPECT_EQ(h.find(a[i].first, a[i].second), 0);
+    h.insert(a[i]);
   }
-}
 
-TEST(PQUEUETREE, canPush) {
-  PQueueTree q;
-
-  q.push(make_pair(1, 0));
-  q.push(make_pair(2, 1));
-  q.push(make_pair(3, 2));
-  q.push(make_pair(5, 3));
-  q.push(make_pair(4, 4));
-
-  int d1 = q.countOp;
-
-  q.push(make_pair(11, 11));
-  q.push(make_pair(12, 10));
-  q.push(make_pair(13, 12));
-  q.push(make_pair(15, 13));
-  q.push(make_pair(14, 14));
-
-  int d2 = q.countOp;
-
-  //  EXPECT_EQ((log(10)/*/log(2)*/ - log(5)/*/log(2)*/)/(d2 - d1), 1);
+    int b = h[0];
+    h.deleteNode(0);
+    EXPECT_FALSE(b == h[0]);
 }
 
 TEST(PQUEUETREE, canGetMin) {
-  PQueueTree q;
+  PQueueTree<int> q;
 
-  q.push(make_pair(19, 3));
-  q.push(make_pair(2, 1));
-  q.push(make_pair(3, 2));
-  q.push(make_pair(1, 0));
+  q.push(19);
+  q.push(2);
+  q.push(3);
+  q.push(1);
 
-  EXPECT_EQ(q.min().first, 1);
-  EXPECT_EQ(q.min().second, 0);
+  EXPECT_EQ(q.min(), 1);
 }
 
 TEST(PQUEUETREE, canDelMin) {
-  PQueueTree q;
+  PQueueTree<int> q;
 
-  q.push(make_pair(19, 3));
-  q.push(make_pair(2, 1));
-  q.push(make_pair(3, 2));
-  q.push(make_pair(1, 0));
-
-  q.deleteMin(make_pair(1, 0));
-
-  EXPECT_EQ(q.min().first, 2);
-  EXPECT_EQ(q.min().second, 1);
-}
-
-TEST(PQUEUETREE, canUpdate) {
-  PQueueTree q;
-
-  q.push(make_pair(19, 3));
-  q.push(make_pair(2, 1));
-  q.push(make_pair(3, 2));
-  q.push(make_pair(1, 0));
-
-  q.update(2, -1);
-
-  EXPECT_EQ(q.min().first, -1);
-  EXPECT_EQ(q.min().second, 2);
-}
-
-TEST(PQUEUEHEAP, canPush) {
-  PQueueHeap q;
-
-  q.push(make_pair(1, 0));
-  q.push(make_pair(2, 1));
-  q.push(make_pair(3, 2));
-}
-
-TEST(PQUEUEHEAP, canGetMin) {
-  PQueueHeap q;
-
-  q.push(make_pair(19, 3));
-  q.push(make_pair(2, 1));
-  q.push(make_pair(3, 2));
-  q.push(make_pair(1, 0));
-
-  EXPECT_EQ(q.min().first, 1);
-  EXPECT_EQ(q.min().second, 0);
-}
-
-TEST(PQUEUEHEAP, canDelMin) {
-  PQueueHeap q;
-
-  q.push(make_pair(19, 3));
-  q.push(make_pair(2, 1));
-  q.push(make_pair(3, 2));
-  q.push(make_pair(1, 0));
+  q.push(19);
+  q.push(2);
+  q.push(3);
+  q.push(1);
 
   q.deleteMin();
 
-  EXPECT_EQ(q.min().first, 2);
-  EXPECT_EQ(q.min().second, 1);
+  EXPECT_EQ(q.min(), 2);
 }
 
-TEST(PQUEUEHEAP, canUpdate) {
-  PQueueHeap q;
+TEST(PQUEUEHEAP, canGetMin) {
+  PQueueHeap<int> q;
 
-  q.push(make_pair(19, 3));
-  q.push(make_pair(2, 1));
-  q.push(make_pair(3, 2));
-  q.push(make_pair(1, 0));
+  q.push(19);
+  q.push(2);
+  q.push(3);
+  q.push(1);
 
-  q.update(2, -1);
+  EXPECT_EQ(q.min(), 1);
+}
 
-  EXPECT_EQ(q.min().first, -1);
-  EXPECT_EQ(q.min().second, 2);
+TEST(PQUEUEHEAP, canDelMin) {
+  PQueueHeap<int> q;
+
+  q.push(19);
+  q.push(2);
+  q.push(3);
+  q.push(1);
+
+  q.deleteMin();
+
+  EXPECT_EQ(q.min(), 2);
 }
 
 TEST(DijkstraTree, canFindWay) {
   vector< vector< pair<int, int> > > g = { { make_pair(6, 2), make_pair(4, 1) },
-                                           { make_pair(1, 3) },
-                                           { make_pair(3, 3) },
-                                           { make_pair(-1, -1) } };
-  int way = dijkstraTree(g, 0, 3);
+  { make_pair(1, 3), make_pair(4, 0) },
+  { make_pair(3, 3), make_pair(6, 0) },
+  { make_pair(-1, -1), make_pair(1, 1), make_pair(3, 3) } };
+  vector<int> way = dijkstraTree(g, 0, 3);
 
-  EXPECT_EQ(way, 5);
+  EXPECT_EQ(way[3], 5);
 }
 
 TEST(DijkstraTree, canFindMinWay) {
@@ -398,9 +313,22 @@ TEST(DijkstraTree, canFindMinWay) {
                                            { make_pair(1, 5), make_pair(4, 6) },
                                            { make_pair(2, 6) },
                                            { make_pair(-1, -1) } };
-  int way = dijkstraTree(g, 2, 6);
+  vector<int> way = dijkstraTree(g, 0, 6);
 
-  EXPECT_EQ(way, 5);
+  EXPECT_EQ(way[6], 8);
+}
+
+TEST(DijkstraTree, canFindMinWay2) {
+  vector< vector< pair<int, int> > > g = { { make_pair(6, 2), make_pair(4, 1) },
+                                           { make_pair(1, 3) },
+                                           { make_pair(3, 3), make_pair(2, 4) },
+                                           { make_pair(1, 5) },
+                                           { make_pair(-1, -1) },
+                                           { make_pair(2, 6) },
+                                           { make_pair(-1, -1) } };
+  vector<int> way = dijkstraTree(g, 0, 6);
+
+  EXPECT_EQ(way[6], 8);
 }
 
 TEST(DijkstraTree, canDetectNonExistinWay) {
@@ -408,27 +336,38 @@ TEST(DijkstraTree, canDetectNonExistinWay) {
                                            { make_pair(1, 3) },
                                            { make_pair(3, 3) },
                                            { make_pair(-1, -1) } };
-  int way = dijkstraTree(g, 2, 1);
+  vector<int> way = dijkstraTree(g, 2, 1);
 
-  EXPECT_EQ(way, 0);
+  EXPECT_EQ(way[1], 1000000000);
 }
 
 TEST(DijkstraTree, oneNode) {
-  vector<vector<pair<int, int> > >g{{ make_pair(6, 2) }};
+  vector<vector<pair<int, int> > >g{{ make_pair(6, 0) }};
 
-  int way = dijkstraTree(g, 2, 1);
+  ASSERT_ANY_THROW(dijkstraTree(g, 0, 1));
+}
 
-  EXPECT_EQ(way, 0);
+TEST(DijkstraTree, leafs) {
+  vector<vector<pair<int, int> > > g = { { make_pair(1, 1), make_pair(1, 3) },
+  { make_pair(2, 4), make_pair(1, 2) },
+  { make_pair(5, 5) },
+  { make_pair(-1, -1) },
+  { make_pair(-1, -1) },
+  { make_pair(-1, -1) } };
+
+  vector<int> way = dijkstraTree(g, 0, 5);
+
+  EXPECT_EQ(way[5], 7);
 }
 
 TEST(DijkstraHeap, canFindWay) {
   vector< vector< pair<int, int> > > g = { { make_pair(6, 2), make_pair(4, 1) },
-  { make_pair(1, 3) },
-  { make_pair(3, 3) },
-  { make_pair(-1, -1) } };
-  int way = dijkstraHeap(g, 0, 3);
+  { make_pair(1, 3), make_pair(4, 0) },
+  { make_pair(3, 3), make_pair(6, 0) },
+  { make_pair(-1, -1), make_pair(1, 1), make_pair(3, 3) } };
+  vector<int> way = dijkstraHeap(g, 0, 3);
 
-  EXPECT_EQ(way, 5);
+  EXPECT_EQ(way[3], 5);
 }
 
 TEST(DijkstraHeap, canFindMinWay) {
@@ -439,9 +378,22 @@ TEST(DijkstraHeap, canFindMinWay) {
   { make_pair(1, 5), make_pair(4, 6) },
   { make_pair(2, 6) },
   { make_pair(-1, -1) } };
-  int way = dijkstraHeap(g, 2, 6);
+  vector<int> way = dijkstraHeap(g, 2, 6);
 
-  EXPECT_EQ(way, 5);
+  EXPECT_EQ(way[6], 5);
+}
+
+TEST(DijkstraHeap, canFindMinWay2) {
+  vector< vector< pair<int, int> > > g = { { make_pair(6, 2), make_pair(4, 1) },
+  { make_pair(1, 3) },
+  { make_pair(3, 3), make_pair(2, 4) },
+  { make_pair(1, 5) },
+  { make_pair(-1, -1) },
+  { make_pair(2, 6) },
+  { make_pair(-1, -1) } };
+  vector<int> way = dijkstraHeap(g, 0, 6);
+
+  EXPECT_EQ(way[6], 8);
 }
 
 TEST(DijkstraHeap, canDetectNonExistinWay) {
@@ -449,15 +401,26 @@ TEST(DijkstraHeap, canDetectNonExistinWay) {
   { make_pair(1, 3) },
   { make_pair(3, 3) },
   { make_pair(-1, -1) } };
-  int way = dijkstraHeap(g, 2, 1);
+  vector<int> way = dijkstraHeap(g, 2, 1);
 
-  EXPECT_EQ(way, 0);
+  EXPECT_EQ(way[1], 1000000000);
 }
 
 TEST(DijkstraHeap, oneNode) {
-  vector<vector<pair<int, int> > >g{ { make_pair(6, 2) } };
+  vector<vector<pair<int, int> > > g = { { make_pair(6, 0) } };
 
-  int way = dijkstraHeap(g, 2, 1);
+  ASSERT_ANY_THROW(dijkstraHeap(g, 0, 1));
+}
 
-  EXPECT_EQ(way, 0);
+TEST(DijkstraHeap, leafs) {
+  vector<vector<pair<int, int> > > g = {{make_pair(1, 1), make_pair(1, 3)},
+                                        {make_pair(2, 4), make_pair(1, 2)},
+                                        {make_pair(5, 5)},
+                                        {make_pair(-1, -1)},
+                                        {make_pair(-1, -1)},
+                                        {make_pair(-1, -1)}};
+
+  vector<int> way = dijkstraHeap(g, 0, 5);
+
+  EXPECT_EQ(way[5], 7);
 }

@@ -1,67 +1,64 @@
 #include "PQueue.h"
+using std::make_pair;
 
 const int INF = 1000000000;
 
-int dijkstraTree(vector< vector< pair<int, int> > > g, int start, int end) {
-  PQueueTree q;
-  int n = static_cast<int>(g.size());
-  for (int i = 0; i < n; i++) {
-    if (i == start) {
-      q.push(make_pair(0, i));
-    } else {
-      q.push(make_pair(INF, i));
-    }
-  }
+vector<int> dijkstraTree(vector< vector< pair<int, int> > > g, int start, int end) {
+  if (start < 0 || end > g.size() - 1) throw std::logic_error("wrong imput");
+
+  PQueueTree<pair<int, int> > q;
+  vector<bool> visited(g.size(), false);
+  vector<int> dist(g.size(), INF);
+  dist[start] = 0;
+  q.push(make_pair(0, start));
 
   while (!q.empty()) {
     pair<int, int> v = q.min();
+    q.deleteMin();
 
-    if (v.second == end) {
-      return v.first;
-    }
+    if (visited[v.second] == true) continue;
 
     int n = g[v.second].size();
     for (int i = 0; i < n; i++) {
       pair<int, int> to = g[v.second][i];
-      if (to.second < 0) return 0;
+      if (to.second < 0) break;
 
-      if (v.first + to.first < q.getCurVal(to.second)) {
-        q.update(to.second, v.first + to.first);
+      if (v.first + to.first < dist[to.second]) {
+        dist[to.second] = v.first + to.first;
+        q.push(make_pair(dist[to.second], to.second));
       }
     }
-    q.deleteMin(v);
+    visited[v.second] = true;
   }
-  return 0;
+  return dist;
 }
 
-int dijkstraHeap(vector< vector< pair<int, int> > > g, int start, int end) {
-  PQueueHeap q;
-  int n = static_cast<int>(g.size());
-  for (int i = 0; i < n; i++) {
-    if (i == start) {
-      q.push(make_pair(0, i));
-    } else {
-      q.push(make_pair(INF, i));
-    }
-  }
+vector<int> dijkstraHeap(vector< vector< pair<int, int> > > g, int start, int end) {
+  if (start < 0 || end > g.size() - 1) throw std::logic_error("wrong imput");
+
+  PQueueHeap<pair<int, int> > q;
+  vector<bool> visited(g.size(), false);
+  vector<int> dist(g.size(), INF);
+  dist[start] = 0;
+  q.push(make_pair(0, start));
 
   while (!q.empty()) {
     pair<int, int> v = q.min();
+    q.deleteMin();
 
-    if (v.second == end) {
-      return v.first;
-    }
+    if (visited[v.second] == true) continue;
 
     int n = g[v.second].size();
     for (int i = 0; i < n; i++) {
       pair<int, int> to = g[v.second][i];
-      if (to.second < 0) return 0;
+      if (to.second < 0) break;
 
-      if (v.first + to.first < q.getCurVal(to.second)) {
-        q.update(to.second, v.first + to.first);
+      if (v.first + to.first < dist[to.second]) {
+        dist[to.second] = v.first + to.first;
+        q.push(make_pair(dist[to.second], to.second));
       }
     }
-    q.deleteMin();
+    visited[v.second] = true;
   }
-  return 0;
+  return dist;
 }

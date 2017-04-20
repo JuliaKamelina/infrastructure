@@ -4,34 +4,86 @@
 #include "RBTree.h"
 #include "Heap.h"
 #include <vector>
+#include <utility>
 
 using std::vector;
+using std::pair;
 
-class PQueueTree: public RBTree {
-  RBTree d, v;
+template <class T>
+class PQueueTree: public RBTree<T> {
+  RBTree<T> d;
  public:
-  int countOp;
-
-  void push(pair<int, int> n);  //  first - расстояние, second - вершина
-  pair<int, int> min();  //  first - расстояние, second - вершина
-  void update(int key, int new_value);  //  key - вершина, value - расстояние
-  void deleteMin(pair<int, int> dist);  //  dist.first == distance
-  int getCurVal(int vkey);  //  текущее значение расстояния до данной вершины
-  bool empty();
-};
-
-class PQueueHeap: public DHeap {
-  DHeap d;
- public:
-  void push(pair<int, int> n);
-  pair<int, int> min();  //  first - расстояние, second - вершина
-  void update(int key, int new_value);  //  key - вершина, new_value - расстояние
+  void push(T n);
+  T min();
   void deleteMin();
-  int getCurVal(int key);
   bool empty();
 };
 
-int dijkstraTree(vector< vector< pair<int, int> > > g, int start, int end);
-int dijkstraHeap(vector< vector< pair<int, int> > > g, int start, int end);
+template <class T>
+class PQueueHeap: public DHeap<T> {
+  DHeap<T> d;
+ public:
+  void push(T n);
+  T min();
+  bool empty();
+  void deleteMin();
+};
 
+vector<int> dijkstraTree(vector< vector< pair<int, int> > > g, int start, int end);
+vector<int> dijkstraHeap(vector< vector< pair<int, int> > > g, int start, int end);
+
+
+
+//  PQ НА ДЕРЕВЕ
+
+template <class T>
+T PQueueTree<T>::min() {
+  return d.getMin()->val;
+}
+
+template <class T>
+bool PQueueTree<T>::empty() {
+  if (d.getRoot() == nullptr) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+template <class T>
+void PQueueTree<T>::push(T n) {
+  d.insert(n);
+}
+
+template <class T>
+void PQueueTree<T>::deleteMin() {
+  CNode<T>* node = d.getMin();
+  d.deleteNode(node);
+}
+
+//  PQ НА КУЧЕ
+
+template <class T>
+T PQueueHeap<T>::min() {
+  return d.getMin();
+}
+
+template <class T>
+bool PQueueHeap<T>::empty() {
+  if (d.getSize() == 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+template <class T>
+void PQueueHeap<T>::push(T n) {
+  d.insert(n);
+}
+
+template <class T>
+void PQueueHeap<T>::deleteMin() {
+  d.deleteNode(0);
+}
 #endif  // INCLUDE_PQUEUE_H_

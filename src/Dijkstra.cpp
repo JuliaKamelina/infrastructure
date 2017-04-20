@@ -19,7 +19,7 @@ vector<int> dijkstraTree(vector< vector< pair<int, int> > > g, int start, int en
     int n = g[v.second].size();
     for (int i = 0; i < n; i++) {
       pair<int, int> to = g[v.second][i];
-      if ((to.second < 0) || (visited[to.second] == true)) break;
+      if ((to.second < 0) || (visited[to.second] == true)) continue;
 
       if (v.first + to.first < dist[to.second]) {
         dist[to.second] = v.first + to.first;
@@ -47,7 +47,7 @@ vector<int> dijkstraHeap(vector< vector< pair<int, int> > > g, int start, int en
     int n = g[v.second].size();
     for (int i = 0; i < n; i++) {
       pair<int, int> to = g[v.second][i];
-      if ((to.second < 0) || (visited[to.second] == true)) break;
+      if ((to.second < 0) || (visited[to.second] == true)) continue;
 
       if (v.first + to.first < dist[to.second]) {
         dist[to.second] = v.first + to.first;

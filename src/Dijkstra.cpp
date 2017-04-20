@@ -4,7 +4,7 @@ using std::make_pair;
 const int INF = 1000000000;
 
 vector<int> dijkstraTree(vector< vector< pair<int, int> > > g, int start, int end) {
-  if (start < 0 || end > g.size() - 1) throw std::logic_error("wrong imput");
+  if (start < 0 || end > static_cast<int>(g.size()) - 1) throw std::logic_error("wrong imput");
 
   PQueueTree<pair<int, int> > q;
   vector<bool> visited(g.size(), false);
@@ -34,7 +34,7 @@ vector<int> dijkstraTree(vector< vector< pair<int, int> > > g, int start, int en
 }
 
 vector<int> dijkstraHeap(vector< vector< pair<int, int> > > g, int start, int end) {
-  if (start < 0 || end > g.size() - 1) throw std::logic_error("wrong imput");
+  if (start < 0 || end > static_cast<int>(g.size()) - 1) throw std::logic_error("wrong imput");
 
   PQueueHeap<pair<int, int> > q;
   vector<bool> visited(g.size(), false);

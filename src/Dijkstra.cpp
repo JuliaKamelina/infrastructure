@@ -16,9 +16,6 @@ vector<int> dijkstraTree(vector< vector< pair<int, int> > > g, int start, int en
     pair<int, int> v = q.min();
     q.deleteMin();
 
-//    if (visited[v.second] == true) 
-//      break;
-
     int n = g[v.second].size();
     for (int i = 0; i < n; i++) {
       pair<int, int> to = g[v.second][i];
@@ -46,8 +43,6 @@ vector<int> dijkstraHeap(vector< vector< pair<int, int> > > g, int start, int en
   while (!q.empty()) {
     pair<int, int> v = q.min();
     q.deleteMin();
-
-//    if (visited[v.second] == true) break;
 
     int n = g[v.second].size();
     for (int i = 0; i < n; i++) {

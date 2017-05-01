@@ -11,8 +11,7 @@ void unite(int a, int b, int *count, int *parent) {
   if (count[i] > count[j]) {
     count[i]++;
     parent[j] = i;
-  }
-  else {
+  } else {
     count[j]++;
     parent[i] = j;
   }
@@ -82,7 +81,7 @@ void sink(int **g, int n, int m) {
     }
   }
 
-  q.push(make_pair(0,0));
+  q.push(make_pair(0, 0));
 
   while (!q.empty()) {
     auto t = q.front();

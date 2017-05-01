@@ -186,7 +186,7 @@ TEST(sink_sinkSet, ReturnSame) {
 
   int **g = new int*[m];
   int **g1 = new int*[m];
-  for (int i = 0; i < m; i++){
+  for (int i = 0; i < m; i++) {
     g[i] = new int[n];
     g1[i] = new int[n];
   }

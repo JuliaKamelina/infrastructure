@@ -52,7 +52,7 @@ using std::vector;
 using std::make_pair;
 using std::logic_error;
 
-cv::Mat drowGraph(vector<vector<Node> >g, vector<Node> core, char *ch);
+cv::Mat drowGraph(vector<vector<Node> >g, vector<Node> core);
 vector<Node> Prim(vector<vector<int> >g);
 vector<Node>Kruskal(vector<vector<int> >g);
 

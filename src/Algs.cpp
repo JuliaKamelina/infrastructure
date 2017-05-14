@@ -2,7 +2,7 @@
 #include "DSet.h"
 #include "Algs.h"
 
-Mat drowGraph(vector<vector<Node> >g, vector<Node> core, char *ch) {
+Mat drowGraph(vector<vector<Node> >g, vector<Node> core) {
   vector<Point> drown(g.size(), Point(-1, -1));
   vector<bool> visited(g.size(), false);
 
@@ -10,10 +10,9 @@ Mat drowGraph(vector<vector<Node> >g, vector<Node> core, char *ch) {
   int width = g.size() * 100 + 100;
   Mat image = Mat::zeros(width, width, CV_8UC3);
 
-  Point pt = Point(width / 2 - 100, width / 7);
-  putText(image, ch, pt, cv::FONT_HERSHEY_COMPLEX_SMALL, 1, Scalar(0, 255, 0), 1, lineType);
+  Point pt = Point(width / 2, width / 7);
 
-  pt = Point(pt.x + 100, pt.y + 100);
+  pt = Point(pt.x, pt.y);
   std::queue<pair<pair<Point, Point>, Node > > q;  //  first.first - точка родителя,
                                                    //  first.second - текущая точка
 
@@ -113,8 +112,7 @@ vector<Node> Prim(vector<vector<int> >g) {  //  матрица смежности
     vc++;
   }
 
-  char *cn = "Prim's Algorithm";
-  Mat im = drowGraph(graph, core, cn);
+  Mat im = drowGraph(graph, core);
   imwrite("../PrimGraph.png", im);
 
   return core;
@@ -150,8 +148,7 @@ vector<Node>Kruskal(vector<vector<int> >g) {  //  список смежности
     }
   }
 
-  char *cn = "Kruskal's Algorithm";
-  Mat im = drowGraph(graph, core, cn);
+  Mat im = drowGraph(graph, core);
   imwrite("../KruskalGraph.png", im);
 
   return core;

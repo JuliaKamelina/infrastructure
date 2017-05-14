@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(infrastructure)
+project(laba2)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -24,3 +24,5 @@ include_directories(include)
 add_subdirectory(src)
 add_subdirectory(app)
 add_subdirectory(test)
+configure_file(Prim.txt PrimGraph.txt COPYONLY)
+configure_file(Kruskal.txt KruskalGraph.txt COPYONLY)

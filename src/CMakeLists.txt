@@ -4,8 +4,10 @@ file(GLOB_RECURSE CPPS *.cpp)
 file(GLOB_RECURSE HPPS ../include/*.h ../include/*.hpp)
 
 include_directories(../include)
+find_package(OpenCV REQUIRED)
 
 add_library(${target} ${CPPS} ${HPPS})
+target_link_libraries(code_lib ${OpenCV_LIBS})
 
 file(GLOB lint_config ${CMAKE_SOURCE_DIR}/CPPLINT.cfg)
 add_custom_target(${target}_lint ALL

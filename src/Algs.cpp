@@ -104,7 +104,7 @@ vector<Node> Prim(vector<vector<int> >g) {  //  матрица смежности
       core.push_back(v);
     }
 
-    for (int i = 0; i < graph[v.second].size(); i++) {
+    for (int i = 0; i < static_cast<int>(graph[v.second].size()); i++) {
       if (visited[i] == false) {
       h.insert(graph[v.second][i]);
       }
@@ -113,7 +113,8 @@ vector<Node> Prim(vector<vector<int> >g) {  //  матрица смежности
     vc++;
   }
 
-  Mat im = drowGraph(graph, core, "Prim's Algorithm");
+  char *cn = "Prim's Algorithm";
+  Mat im = drowGraph(graph, core, cn);
   imwrite("../PrimGraph.png", im);
 
   return core;
@@ -125,9 +126,9 @@ vector<Node>Kruskal(vector<vector<int> >g) {  //  список смежности
   vector<Node> arr;
   vector<vector<Node> > graph(g.size());
 
-  for (int i = 0; i < g.size(); i++) {
+  for (int i = 0; i < static_cast<int>(g.size()); i++) {
     int j = 0;
-    while (j < g[i].size()) {
+    while (j < static_cast<int>(g[i].size())) {
       if (g[i][j + 1] >= 0) {
         arr.push_back(Node(g[i][j], i, g[i][j + 1]));
         graph[i].push_back(Node(g[i][j], i, g[i][j + 1]));
@@ -149,7 +150,8 @@ vector<Node>Kruskal(vector<vector<int> >g) {  //  список смежности
     }
   }
 
-  Mat im = drowGraph(graph, core, "Kruskal's Algorithm");
+  char *cn = "Kruskal's Algorithm";
+  Mat im = drowGraph(graph, core, cn);
   imwrite("../KruskalGraph.png", im);
 
   return core;

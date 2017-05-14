@@ -23,7 +23,7 @@ TEST(Prim, oneVErtex) {
   vector<vector<int> > g = { {0, 0}};
   vector<Node> o = Prim(g);
 
-  EXPECT_EQ(o.size(), 0);
+  EXPECT_EQ(static_cast<int>(o.size()), 0);
 }
 
 TEST(Prim, twoVertexes) {
@@ -76,7 +76,7 @@ TEST(Kruskal, oneVErtex) {
   vector<vector<int> > g = { {-1, -1 } };
   vector<Node> o = Kruskal(g);
 
-  EXPECT_EQ(o.size(), 0);
+  EXPECT_EQ(static_cast<int>(o.size()), 0);
 }
 
 TEST(Kruskal, twoVertexes) {

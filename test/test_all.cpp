@@ -10,16 +10,13 @@ TEST(Prim, canFindCore) {
                             {0, 2, 3, 0}};
 
   vector<Node> o = Prim(g);
+  vector<Node> res = {Node(1, 0, 1), Node(1, 1, 2), Node(2, 1, 3) };
 
-  EXPECT_EQ(o[0].dist, 1);
-  EXPECT_EQ(o[0].first, 0);
-  EXPECT_EQ(o[0].second, 1);
-  EXPECT_EQ(o[1].dist, 1);
-  EXPECT_EQ(o[1].first, 1);
-  EXPECT_EQ(o[1].second, 2);
-  EXPECT_EQ(o[2].dist, 2);
-  EXPECT_EQ(o[2].first, 1);
-  EXPECT_EQ(o[2].second, 3);
+  for (int i = 0; i < 3; i++) {
+    EXPECT_EQ(o[i].dist, res[i].dist);
+    EXPECT_EQ(o[i].first, res[i].first);
+    EXPECT_EQ(o[i].second, res[i].second);
+  }
 }
 
 TEST(Prim, oneVErtex) {
@@ -33,10 +30,11 @@ TEST(Prim, twoVertexes) {
   vector<vector<int> > g = { {0, 2},
                              {2, 0} };
   vector<Node> o = Prim(g);
+  Node res = Node(2, 0, 1);
 
-  EXPECT_EQ(o[0].dist, 2);
-  EXPECT_EQ(o[0].first, 0);
-  EXPECT_EQ(o[0].second, 1);
+  EXPECT_EQ(o[0].dist, res.dist);
+  EXPECT_EQ(o[0].first, res.first);
+  EXPECT_EQ(o[0].second, res.second);
 }
 
 TEST(Prim, canFindCore2) {
@@ -47,19 +45,13 @@ TEST(Prim, canFindCore2) {
                              {5, 0, 3, 3, 0} };
 
   vector<Node> o = Prim(g);
+  vector<Node> res = {Node(2, 0, 1), Node(4, 0, 2), Node(1, 2, 3), Node(3, 2, 4)};
 
-  EXPECT_EQ(o[0].dist, 2);
-  EXPECT_EQ(o[0].first, 0);
-  EXPECT_EQ(o[0].second, 1);
-  EXPECT_EQ(o[1].dist, 4);
-  EXPECT_EQ(o[1].first, 0);
-  EXPECT_EQ(o[1].second, 2);
-  EXPECT_EQ(o[2].dist, 1);
-  EXPECT_EQ(o[2].first, 2);
-  EXPECT_EQ(o[2].second, 3);
-  EXPECT_EQ(o[3].dist, 3);
-  EXPECT_EQ(o[3].first, 2);
-  EXPECT_EQ(o[3].second, 4);
+  for (int i = 0; i < 4; i++) {
+    EXPECT_EQ(o[i].dist, res[i].dist);
+    EXPECT_EQ(o[i].first, res[i].first);
+    EXPECT_EQ(o[i].second, res[i].second);
+  }
 }
 
 
@@ -71,15 +63,13 @@ TEST(Kruskal, canFindCore) {
 
   vector<Node> o = Kruskal(g);
 
-  EXPECT_EQ(o[0].dist, 1);
-  EXPECT_EQ(o[0].first, 0);
-  EXPECT_EQ(o[0].second, 1);
-  EXPECT_EQ(o[1].dist, 1);
-  EXPECT_EQ(o[1].first, 1);
-  EXPECT_EQ(o[1].second, 2);
-  EXPECT_EQ(o[2].dist, 2);
-  EXPECT_EQ(o[2].first, 1);
-  EXPECT_EQ(o[2].second, 3);
+  vector<Node> res = { Node(1, 0, 1), Node(1, 1, 2), Node(2, 1, 3) };
+
+  for (int i = 0; i < 3; i++) {
+    EXPECT_EQ(o[i].dist, res[i].dist);
+    EXPECT_EQ(o[i].first, res[i].first);
+    EXPECT_EQ(o[i].second, res[i].second);
+  }
 }
 
 TEST(Kruskal, oneVErtex) {
@@ -93,10 +83,11 @@ TEST(Kruskal, twoVertexes) {
   vector<vector<int> > g = { { 2, 1},
                       {2, 0} };
   vector<Node> o = Kruskal(g);
+  Node res = Node(2, 0, 1);
 
-  EXPECT_EQ(o[0].dist, 2);
-  EXPECT_EQ(o[0].first, 0);
-  EXPECT_EQ(o[0].second, 1);
+  EXPECT_EQ(o[0].dist, res.dist);
+  EXPECT_EQ(o[0].first, res.first);
+  EXPECT_EQ(o[0].second, res.second);
 }
 
 TEST(Kruskal, canFindCore2) {
@@ -107,17 +98,11 @@ TEST(Kruskal, canFindCore2) {
                              {5, 0, 3, 2, 3, 3}};
 
   vector<Node> o = Kruskal(g);
+  vector<Node> res = {Node(1, 2, 3), Node(2, 0, 1), Node(3, 2, 4), Node(4, 0, 2)};
 
-  EXPECT_EQ(o[1].dist, 2);
-  EXPECT_EQ(o[1].first, 0);
-  EXPECT_EQ(o[1].second, 1);
-  EXPECT_EQ(o[3].dist, 4);
-  EXPECT_EQ(o[3].first, 0);
-  EXPECT_EQ(o[3].second, 2);
-  EXPECT_EQ(o[0].dist, 1);
-  EXPECT_EQ(o[0].first, 2);
-  EXPECT_EQ(o[0].second, 3);
-  EXPECT_EQ(o[2].dist, 3);
-  EXPECT_EQ(o[2].first, 2);
-  EXPECT_EQ(o[2].second, 4);
+  for (int i = 0; i < 4; i++) {
+    EXPECT_EQ(o[i].dist, res[i].dist);
+    EXPECT_EQ(o[i].first, res[i].first);
+    EXPECT_EQ(o[i].second, res[i].second);
+  }
 }

@@ -67,8 +67,8 @@ int* join(vector<pair<int, int> > p, vector<int> q) {
         for (int k = 0; k < size; k++) {
           int par3 = find(sep[j], parent);
 
-          if (a == p[k].first && par3 == find(p[k].second, parent) ||
-               a == p[k].second && par3 == find(p[k].first, parent)) {
+          if (((a == p[k].first) && (par3 == find(p[k].second, parent))) ||
+               ((a == p[k].second) && (par3 == find(p[k].first, parent)))) {
             f = false;
             break;
           }

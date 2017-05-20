@@ -7,8 +7,7 @@ void unite(int a, int b, int *count, int *parent) {
   if (count[i] > count[j]) {
     count[i]++;
     parent[j] = i;
-  }
-  else {
+  } else {
     count[j]++;
     parent[i] = j;
   }
@@ -76,7 +75,7 @@ int* join(vector<pair<int, int> > p, vector<int> q) {
         }
 
         if (f == true) {
-          unite (p[i].second, sep[j], count, parent);
+          unite(p[i].second, sep[j], count, parent);
         }
         j++;
       }

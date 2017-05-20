@@ -6,7 +6,7 @@ using std::make_pair;
 
 TEST(Join, canJoin) {
   vector<int> q = {0, 1, 2, 3, 4, 5, 6, 7};
-  vector<pair<int, int> > p = {make_pair(1, 2), make_pair(2, 4), 
+  vector<pair<int, int> > p = {make_pair(1, 2), make_pair(2, 4),
      make_pair(5, 6), make_pair(6, 2), make_pair(1, 4)};
 
   int *par = join(p, q);
@@ -19,7 +19,7 @@ TEST(Join, canJoin) {
 
 TEST(Join, canJoin2) {
   vector<int> q = { 0, 1, 2, 3, 4, 5};
-  vector<pair<int, int> > p = {make_pair(0, 1), make_pair(1, 2), make_pair(0, 2), 
+  vector<pair<int, int> > p = {make_pair(0, 1), make_pair(1, 2), make_pair(0, 2),
                                 make_pair(0, 3), make_pair(2, 3)};
 
   int *par = join(p, q);

@@ -76,7 +76,7 @@ Mat drowGraph(vector<vector<Node> >g, vector<Node> core) {
   return image;
 }
 
-vector<Node> Prim(vector<vector<int> >g) {  //  матрица смежности
+vector<Node> Prim(vector<vector<int> >g) {
   vector<bool> visited(g.size(), false);
   DHeap<Node> h;
   vector<vector<Node> > graph;
@@ -119,7 +119,7 @@ vector<Node> Prim(vector<vector<int> >g) {  //  матрица смежности
 }
 
 
-vector<Node>Kruskal(vector<vector<int> >g) {  //  список смежности
+vector<Node>Kruskal(vector<vector<int> >g) {
   vector<Node> core;
   vector<Node> arr;
   vector<vector<Node> > graph(g.size());
